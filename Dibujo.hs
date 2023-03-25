@@ -1,7 +1,7 @@
 
 module Dibujo (
     Dibujo(..),
-    figura, rotar, espejar, rot45, apilar, juntar, encimar,
+    figura, rotar90, espejar, rot45, apilar, juntar, encimar,
     r180, r270,
     (.-.), (///), (^^^),
     cuarteto, encimar4, ciclar,
@@ -21,7 +21,7 @@ Gramática de las figuras:
 -- Plantear una especie de "recursion" donde ese es el ultimo Vacío
 data Dibujo base_dibujo = Vacia
     | Figura base_dibujo
-    | Rotar (Dibujo base_dibujo)
+    | Rotar90 (Dibujo base_dibujo)
     | Espejar (Dibujo base_dibujo)
     | Rot45 (Dibujo base_dibujo)
     | Apilar Float Float (Dibujo base_dibujo) (Dibujo base_dibujo)
@@ -38,13 +38,12 @@ vacia = Vacia
 espejar :: Dibujo base_dibujo -> Dibujo base_dibujo
 espejar = Espejar
 
-
 figura :: base_dibujo -> Dibujo base_dibujo
 figura = Figura
 
--- rotar
-rotar :: Dibujo base_dibujo -> Dibujo base_dibujo
-rotar = Rotar
+-- rotar90
+rotar90 :: Dibujo base_dibujo -> Dibujo base_dibujo
+rotar90 = Rotar90
 
 -- rot45
 rot45 :: Dibujo base_dibujo -> Dibujo base_dibujo
@@ -64,10 +63,10 @@ encimar = Encimar
 
 -- Rotaciones de múltiplos de 90.
 r180 :: Dibujo base_dibujo -> Dibujo base_dibujo
-r180 p_1 = rotar $ rotar p_1
+r180 p_1 = rotar90 $ rotar90 p_1
 
 r270 :: Dibujo base_dibujo -> Dibujo base_dibujo
-r270 p_1 = rotar $ rotar $ rotar p_1 
+r270 p_1 = rotar90 $ rotar90 $ rotar90 p_1 
 
 -- Pone una figura sobre la otra, ambas ocupan el mismo espacio.
 (.-.) = undefined

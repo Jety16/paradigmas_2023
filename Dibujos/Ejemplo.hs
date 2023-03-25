@@ -7,17 +7,17 @@ import Graphics.Gloss (white, line, polygon, pictures)
 
 import qualified Graphics.Gloss.Data.Point.Arithmetic as V
 
-import Dibujo (Dibujo, figura)
+import Dibujo (Dibujo, figura, rotar90, espejar)
 import FloatingPic (Output, half, zero)
 import Interp (Conf(..), interp)
 
 type Basica = ()
 
 ejemplo :: Dibujo Basica
-ejemplo = figura ()
+ejemplo = rotar90(figura ())
 
 interpBas :: Output Basica
-interpBas () a b c = pictures [line $ triangulo a b c, cara a b c]
+interpBas () a b c = pictures [cara a b c]
   where
       triangulo a b c = map (a V.+) [zero, c, b, zero]
 
