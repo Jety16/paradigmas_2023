@@ -14,7 +14,7 @@ import Interp (Conf(..), interp)
 type Basica = ()
 
 ejemplo :: Dibujo Basica
-ejemplo = rotar90(figura ())
+ejemplo = espejar(figura ())
 
 interpBas :: Output Basica
 interpBas () a b c = pictures [cara a b c]
@@ -31,4 +31,3 @@ ejemploConf = Conf {
     name = "Ejemplo",
     pic = interp interpBas ejemplo
 }
-
