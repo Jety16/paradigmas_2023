@@ -14,18 +14,22 @@ import Interp (Conf(..), interp)
 type Basica = ()
 
 ejemplo :: Dibujo Basica
-ejemplo = rotar90(figura ())
-
+ejemplo = figura ()
+--como es output y de donde vine a b c
 interpBas :: Output Basica
-interpBas () a b c = pictures [cara a b c]
+interpBas () a b c = pictures [triangulo a b c, triangulo2 a b c]
   where
-      triangulo a b c = map (a V.+) [zero, c, b, zero]
-
+      triangulo a b c = polygon $ map (a V.+) [zero, b V.+ c, b , zero]
+      triangulo2 a b c = polygon $ map (a V.+) [zero, half b V.+ c, b,zero]
         -- cara abc calls the polygon with the  vector list from triangulo a b c 
         -- where a = (a V.+ half c) and b = (half b) and c = (half c)
         -- polygon is a data struc of type Picture
-      cara a b c = polygon $ triangulo (a V.+ half c) (half b) (half c)
-
+        -- c= alto h
+        -- b = ancho w
+      -- cara a b c = polygon $ triangulo (a) (half b) (half c)
+      --                     triangulo [half c, half b + half c , c, half c]
+                    --       triangulo half b half c half c
+      --                     triangulo [half b, half c + half b , c  ]
 ejemploConf :: Conf
 ejemploConf = Conf {
     name = "Ejemplo",
