@@ -43,7 +43,7 @@ figura = Figura
 
 -- rotar90
 rotar90 :: Dibujo base_dibujo -> Dibujo base_dibujo
-rotar90 = Rotar90
+rotar90 a = Rotar90 a
 
 -- rot45
 rot45 :: Dibujo base_dibujo -> Dibujo base_dibujo
@@ -55,11 +55,12 @@ apilar float1 float2 a b = Apilar float1 float2 a b
 
 -- Juntar
 juntar :: Float -> Float -> Dibujo base_dibujo -> Dibujo base_dibujo -> Dibujo base_dibujo
-juntar = Juntar
+juntar fl1 fl2 a b  = Juntar fl1 fl2 a b
 
 -- Encimar
 encimar :: Dibujo base_dibujo ->  Dibujo base_dibujo -> Dibujo base_dibujo
 encimar a b = Encimar a b
+
 
 -- Rotaciones de múltiplos de 90.
 r180 :: Dibujo base_dibujo -> Dibujo base_dibujo
@@ -70,18 +71,19 @@ r270 p_1 = rotar90 $ rotar90 $ rotar90 p_1
 
 -- Pone una figura sobre la otra, ambas ocupan el mismo espacio. Apilar compartido
 (.-.) :: Dibujo base_dibujo -> Dibujo base_dibujo -> Dibujo base_dibujo
-(.-.) a b =  apilar 100 100 a b
+(.-.) a b =  apilar 0.5 0.5 a b
 
 -- Pone una figura al lado de la otra, ambas ocupan el mismo espacio. Encimar Compartido
-(///) = undefined
+(///) :: Dibujo base_dibujo -> Dibujo base_dibujo -> Dibujo base_dibujo
+(///) a b = juntar 0.5 0.5 a b
 
 -- Superpone una figura con otra.
 (^^^) = undefined
 
--- Dadas cuatro figuras las ubica en los cuatro cuadrantes. (No se bien como funciona el apilar por lo que lo dejo en 1.0)
+-- Dadas cuatro figuras las ubica en los cuatro cuadrantes.
 cuarteto :: Dibujo base_dibujo -> Dibujo base_dibujo ->  Dibujo base_dibujo -> Dibujo base_dibujo -> Dibujo base_dibujo
---cuarteto a b c d = encimar( (apilar 1.0 1.0) (apilar 1.0 1.0 c d) )
-cuarteto = undefined
+cuarteto a b c d = (///) ((.-.) a b) ((.-.) c d)
+
 -- Una figura repetida con las cuatro rotaciones, superpuestas.
 encimar4 = undefined
 
