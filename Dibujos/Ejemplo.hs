@@ -1,15 +1,14 @@
-module Dibujos.Ejemplo (
-    interpBas,
-    ejemploConf
-) where
-    
-import Graphics.Gloss (white, line, polygon, pictures, text)
+module Dibujos.Ejemplo
+  ( interpBas,
+    ejemploConf,
+  )
+where
 
-import qualified Graphics.Gloss.Data.Point.Arithmetic as V
-
-import Dibujo (Dibujo, figura, rotar90, espejar,encimar)
+import Dibujo (Dibujo, encimar, espejar, figura, r180, r270, rot45, rotar90)
 import FloatingPic (Output, half, zero)
-import Interp (Conf(..), interp)
+import Graphics.Gloss (line, pictures, polygon, white,text)
+import qualified Graphics.Gloss.Data.Point.Arithmetic as V
+import Interp (Conf (..), interp)
 
 type Basica = () 
 
@@ -22,9 +21,11 @@ ejemplo = encimar (rotar90 (figura ())) (figura ())
 interpBas :: Output Basica
 interpBas () a b c = pictures [triangulo a b c]
   where
-      triangulo a b c = polygon $ map (a V.+) [zero, b V.+ c, b , zero]
+      triangulo a b c = polygon $ map (a V.+) [zero, c, b, zero]
+      triangulo1 a b c = polygon $ map (a V.+) [zero, b V.+ c, b , zero]
       triangulo2 a b c = polygon $ map (a V.+) [zero, half b V.+ c, b,zero]
-      --s = "MINITAS'NT"
+      cuadrado a b c = line [a , a V.+ c, a V.+ b V.+ c, a V.+ b, a]
+            --s = "MINITAS'NT"
       --texto s = text s
         -- cara abc calls the polygon with the  vector list from triangulo a b c 
         -- where a = (a V.+ half c) and b = (half b) and c = (half c)
@@ -35,9 +36,10 @@ interpBas () a b c = pictures [triangulo a b c]
       --                     triangulo [half c, half b + half c , c, half c]
                     --       triangulo half b half c half c
       --                     triangulo [half b, half c + half b , c  ]
-ejemploConf :: Conf
-ejemploConf = Conf {
-    name = "Ejemplo",
-    pic = interp interpBas ejemplo
-}
 
+ejemploConf :: Conf
+ejemploConf =
+  Conf
+    { name = "Ejemplo",
+      pic = interp interpBas ejemplo
+    }
